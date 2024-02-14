@@ -1,7 +1,7 @@
 const API_KEY = "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"
 const submitIcon = document.querySelector("#submit-icon")
-
-const getImages = () => {
+const inputElement = document.querySelector('input')
+const getImages = async () => {
     const options = {
         method: "Post",
         headers: {
@@ -9,13 +9,15 @@ const getImages = () => {
             "content-type": "application/json"
         },
         body: JSON.stringify({
-            "prompt" : "",
+            "prompt" : inputElement.value,
             "n": 4,
             "size": "1024X1024"
         }) 
     }
     try {
-        fetch('https://api.openai.com/v1/images/generations', options)
+     const response =  await fetch('https://api.openai.com/v1/images/generations', options)
+     const data = await response.json()
+     console.log(data)
     } catch (error) {
         console.error(error)
     }
@@ -26,4 +28,4 @@ const getImages = () => {
 
 
 
-submitIcon.addEventListener('click, getImages')
+submitIcon.addEventListener('click', getImages)
