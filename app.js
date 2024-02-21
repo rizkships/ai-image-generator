@@ -1,9 +1,11 @@
 const API_KEY = "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"
 const submitIcon = document.querySelector("#submit-icon")
 const inputElement = document.querySelector('input')
+const imageSection = document.querySelector('.images-section')
+
 const getImages = async () => {
     const options = {
-        method: "Post",
+        method: "POST",
         headers: {
             "Authorization": `Bearer ${API_KEY}`,
             "content-type": "application/json"
@@ -11,7 +13,7 @@ const getImages = async () => {
         body: JSON.stringify({
             "prompt" : inputElement.value,
             "n": 4,
-            "size": "1024X1024"
+            "size": "1024x1024"
         }) 
     }
     try {
@@ -22,6 +24,15 @@ const getImages = async () => {
         console.error(error)
     }
 
+    data?.data.forEach(imageObject => {
+        const ImageContainer = document.createElement('div')
+        ImageContainer.classList.add('image-container')
+        const imageElement = document.createElement('img')
+        imageElement.setAttribute('src', imageObject.url)
+        ImageContainer.append(imageElement)
+        images-section.append(ImageContainer)
+
+    })
 
 }
 
