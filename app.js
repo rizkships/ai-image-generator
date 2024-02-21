@@ -1,9 +1,16 @@
-const API_KEY = "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"
+let API_KEY; 
 const submitIcon = document.querySelector("#submit-icon")
 const inputElement = document.querySelector("input")
 const imageSection = document.querySelector(".images-section")
 
 const getImages = async () => {
+    API_KEY = inputElement.value;
+
+    if (!API_KEY) {
+        console.error("Please enter your OpenAI API Key.");
+        return;
+    }
+
     const options = {
         method: "POST",
         headers: {
